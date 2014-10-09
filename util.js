@@ -26,7 +26,7 @@ var Util = {
                 queryStr += '&' + key + (typeof val !== 'undefined' ? '=' + encodeURIComponent(val) : '');
             }
         }
-        return queryStr;
+        return queryStr.slice(1);
     }
 };
 

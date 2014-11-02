@@ -1,5 +1,6 @@
 /**
  *项目/框架无关的工具方法
+ *v0.06
  */
 
  ;(function (root, factory) {

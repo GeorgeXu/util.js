@@ -1,0 +1,20 @@
+{
+  "name": "util.js",
+  "main": "util.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/GeorgeXu/util.js",
+  "authors": [
+    "GeorgeXu <xuge123@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

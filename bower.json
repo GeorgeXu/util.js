@@ -6,9 +6,6 @@
   "authors": [
     "GeorgeXu <xuge123@gmail.com>"
   ],
-  "moduleType": [
-    "globals"
-  ],
   "license": "MIT",
   "ignore": [
     "**/.*",

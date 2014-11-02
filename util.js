@@ -7,8 +7,8 @@ var Util = {
     isHostMethod: function (object, property) {
         var t = typeof object[property];
         return t == 'function' ||
-            (!!(t == 'object' && object[property])) ||
-            t == 'unknown';
+        (!!(t == 'object' && object[property])) ||
+        t == 'unknown';
     },
     getUuid: function () {
         var uuid = "";
@@ -16,6 +16,17 @@ var Util = {
             uuid += Math.floor(Math.random() * 16).toString(16);
         }
         return uuid;
+    },
+    param: function (paramObject) {
+        var queryStr = '',
+            val;
+        for (var key in paramObject) {
+            if (paramObject.hasOwnProperty(key)) {
+                val = paramObject[key];
+                queryStr += '&' + key + (typeof val !== 'undefined' ? '=' + encodeURIComponent(val) : '');
+            }
+        }
+        return queryStr.slice(1);
     }
 };
 
@@ -539,12 +550,12 @@ Util.Input = {
             rng.select();
         }
     },
-    insertChar:function(textareaElem,input,curPos,insertPos){
+    insertChar: function (textareaElem, input, curPos, insertPos) {
         var val = textareaElem.value !== undefined ? textareaElem.value : textareaElem.innerHTML;
         var input_pos;
-        if($.isNumeric(insertPos)){
-            input_pos = [insertPos,0]
-        }else{
+        if ($.isNumeric(insertPos)) {
+            input_pos = [insertPos, 0]
+        } else {
             input_pos = Util.Input.getCurSor(textareaElem).split('|');
         }
 
@@ -552,12 +563,12 @@ Util.Input = {
         var l = val.substr(0, input_pos[0]);
         var r = val.substr(input_pos[1], val.length);
         val = l + input + r;
-        if(textareaElem.value !== undefined){
+        if (textareaElem.value !== undefined) {
             textareaElem.value = val;
-        }else{
+        } else {
             textareaElem.innerHTML = val;
         }
-        if(!$.isNumeric(curPos)){
+        if (!$.isNumeric(curPos)) {
             if (is_insert) {
                 curPos = parseInt(input_pos[0]) + input.length;
             } else {
@@ -613,31 +624,31 @@ Util.Number = {
 };
 
 Util.Array = {
-    getObjectByKeyValue:function(array,key,value){
+    getObjectByKeyValue: function (array, key, value) {
         var obj = null,
             len = array.length;
-        for(var i=0;i<len;i++){
-            if(array[i] !== undefined && typeof array[i][key] !=='undefined' && array[i][key] == value){
-                obj =  array[i];
+        for (var i = 0; i < len; i++) {
+            if (array[i] !== undefined && typeof array[i][key] !== 'undefined' && array[i][key] == value) {
+                obj = array[i];
                 break;
             }
         }
         return obj;
     },
-    removeByValue:function(array,value){
+    removeByValue: function (array, value) {
         var len = array.length;
-        for(var i=0;i<len;i++){
-            if(array[i] == value){
-                array.splice(i,1);
+        for (var i = 0; i < len; i++) {
+            if (array[i] == value) {
+                array.splice(i, 1);
                 break;
             }
         }
         return array;
     },
-    unique:function(arr){
-        var newArray=[];
+    unique: function (arr) {
+        var newArray = [];
         var provisionalTable = {};
-        for (var i = 0, item; (item= arr[i]) != null; i++) {
+        for (var i = 0, item; (item = arr[i]) != null; i++) {
             if (!provisionalTable[item]) {
                 newArray.push(item);
                 provisionalTable[item] = true;
@@ -648,32 +659,32 @@ Util.Array = {
 };
 
 Util.Canvas = {
-   wrapText:function(context, text, x, y, maxWidth, lineHeight){
-       var cars = text.split("\n");
-       for (var ii = 0; ii < cars.length; ii++) {
+    wrapText: function (context, text, x, y, maxWidth, lineHeight) {
+        var cars = text.split("\n");
+        for (var ii = 0; ii < cars.length; ii++) {
 
-           var line = "";
-           var words = cars[ii].split(" ");
+            var line = "";
+            var words = cars[ii].split(" ");
 
-           for (var n = 0; n < words.length; n++) {
-               var testLine = line + words[n] + " ";
-               var metrics = context.measureText(testLine);
-               var testWidth = metrics.width;
+            for (var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + " ";
+                var metrics = context.measureText(testLine);
+                var testWidth = metrics.width;
 
-               if (testWidth > maxWidth) {
-                   context.fillText(line, x, y);
-                   line = words[n] + " ";
-                   y += lineHeight;
-               }
-               else {
-                   line = testLine;
-               }
-           }
+                if (testWidth > maxWidth) {
+                    context.fillText(line, x, y);
+                    line = words[n] + " ";
+                    y += lineHeight;
+                }
+                else {
+                    line = testLine;
+                }
+            }
 
-           context.fillText(line, x, y);
-           y += lineHeight;
-       }
-   }
+            context.fillText(line, x, y);
+            y += lineHeight;
+        }
+    }
 };
 
 //够快客户端（pc，mac客户端及企业套件）函数通用js函数
@@ -707,7 +718,7 @@ var gkClientCommon = {
             //当敲Backspace键时，事件源类型为密码或单行、多行文本的，  
             //并且readonly属性为true或enabled属性为false的，则退格键失效  
             var flag1 = (ev.keyCode == 8 && (t == "password" || t == "text" || t == "textarea")
-                && (vReadOnly == "readonly" || vEnabled != true)) ? true : false;
+            && (vReadOnly == "readonly" || vEnabled != true)) ? true : false;
             //当敲Backspace键时，事件源类型非密码或单行、多行文本的，则退格键失效  
             var flag2 = (ev.keyCode == 8 && t != "password" && t != "text" && t != "textarea")
                 ? true : false;

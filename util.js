@@ -1,6 +1,19 @@
 /**
  *项目/框架无关的工具方法
  */
+
+ ;(function (root, factory) {
+  'use strict';
+
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    module.exports = factory();
+  } else if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else {
+    root.Util = factory();
+  }
+}(typeof window === 'object' ? window : this,function(){
+
 var Util = {
     //检测某个方法是不是原生的本地方法
     // http://peter.michaux.ca/articles/feature-detection-state-of-the-art-browser-scripting
@@ -779,38 +792,6 @@ Util.Data = {
     scale: ['1-10', '11-50', '51-100', '101-500', '501-1000', '1001-5000', '5000+'],
     industry: ['计算机/互联网/通信/电子', '会计/金融/银行/保险', '贸易/消费/制造/营运', '制药/医疗', '广告/媒体', '房地产/建筑', '专业服务/教育/培训', '服务业', '物流/运输', '能源/原材料', '政府/非赢利机构/其他']
 };
-/*
- *语言函数
- *
- **/
-function L(name) {
-    var args = Array.prototype.slice.call(arguments), val = '';
-    val = LANG[name.toLowerCase()] || LANG[name.toUpperCase()] || String(name);
-    if (args.length == 1) {
-        return val;
-    }
-    for (var i = 1; i < args.length; i++) {
-        val = val.replace('$' + i, args[i]);
-    }
-    return val;
-}
 
-/*
- *语言gettext
- *
- **/
-function _(name) {
-    try {
-        var args = Array.prototype.slice.call(arguments);
-        var val = gettext[name] || String(name);
-        if (args.length == 1) {
-            return val;
-        }
-        for (var i = 1; i < args.length; i++) {
-            val = val.replace('$' + i, args[i]);
-        }
-        return val;
-    } catch (e) {
-        return String(name);
-    }
-}
+return Util;    
+}));

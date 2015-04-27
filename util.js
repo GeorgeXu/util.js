@@ -217,6 +217,9 @@ Util.Validation = {
     },
     isDate: function (str) {
         return Util.RegExp.Date.test(str);
+    },
+    isMobile: function (str) {
+        return Util.RegExp.mobile.test(str);
     }
 };
 
